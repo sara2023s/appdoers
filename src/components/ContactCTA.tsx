@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
 import { motion } from 'framer-motion';
+import { handleFormSubmit } from '../utils/formHandler';
 
 const ContactCTA: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -18,11 +19,18 @@ const ContactCTA: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', phone: '', message: '' });
-    } catch {
+      const result = await handleFormSubmit({
+        ...formData,
+        source: 'Contact Page'
+      });
+      
+      if (result.success) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', phone: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);

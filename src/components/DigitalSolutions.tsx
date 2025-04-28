@@ -40,13 +40,13 @@ const DigitalSolutions: React.FC = () => {
     <section className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="section-title">Featured Services</h2>
+          <h2 className="section-title" id="featured-services">Featured Services</h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Comprehensive digital solutions to help your business thrive in the modern marketplace
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4">
           {services.map((service, index) => (
             <div
               key={index}

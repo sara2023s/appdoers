@@ -43,7 +43,7 @@ const Header: React.FC = () => {
     <header className="fixed w-full z-50 bg-white shadow-md py-4">
       <nav className="container mx-auto px-4">
         <div className="flex justify-between items-center">
-          <Link to="/" className="flex items-center">
+          <Link to="/" className="flex items-center pl-4">
             <img
               src="/images/logo.png"
               alt="App Doers Logo"

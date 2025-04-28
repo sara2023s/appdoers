@@ -4,7 +4,6 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomePage from './components/HomePage';
 import AboutPage from './components/AboutPage';
-import ServicesPage from './components/ServicesPage';
 import ContactPage from './components/ContactPage';
 import AppsPage from './components/AppsPage';
 import WebsitesPage from './components/WebsitesPage';
@@ -30,7 +29,6 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/services" element={<ServicesPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/apps" element={<AppsPage />} />
             <Route path="/websites" element={<WebsitesPage />} />

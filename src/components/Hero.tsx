@@ -14,27 +14,32 @@ const Hero: React.FC = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Text Content */}
-          <div className="text-white space-y-8">
+          <div className="text-white space-y-8 pl-4">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight animate-fade-in text-white">
               Transform Your Business & Increase Revenue
             </h1>
             <p className="text-xl md:text-2xl text-gray-200 animate-fade-in animation-delay-200">
               Access 5 Cutting-Edge Digital Solutions for a Competitive Edge
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in animation-delay-400">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
               <Link
                 to="/contact"
-                className="btn-primary text-center"
+                className="bg-[#affc41] text-black px-6 py-3 rounded-full hover:bg-[#9ceb3a] transition-colors duration-300 font-medium"
               >
-                Get a Quote
+                Get Started
               </Link>
-              <Link
-                to="/services"
+              <button
+                onClick={() => {
+                  const featuredServices = document.getElementById('featured-services');
+                  if (featuredServices) {
+                    featuredServices.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
                 className="flex items-center justify-center text-white hover:text-[#affc41] transition-colors duration-300 group"
               >
                 See Our Services
                 <FaArrowRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-              </Link>
+              </button>
             </div>
           </div>
 

@@ -85,7 +85,7 @@ const Statistics: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
           {stats.map((stat, index) => (
             <div
               key={index}

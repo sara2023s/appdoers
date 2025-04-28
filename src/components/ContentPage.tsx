@@ -4,9 +4,18 @@ import {
   FaPen, FaBullhorn, FaHeart,
   FaCheck, FaLock, FaQuoteLeft
 } from 'react-icons/fa';
+import { handleFormSubmit } from '../utils/formHandler';
 
 const ContentPage: React.FC = () => {
   const [clientCount, setClientCount] = useState(0);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   useEffect(() => {
     const animateCounter = () => {
@@ -18,6 +27,34 @@ const ContentPage: React.FC = () => {
     const interval = setInterval(animateCounter, 20);
     return () => clearInterval(interval);
   }, [clientCount]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      const result = await handleFormSubmit({
+        ...formData,
+        source: 'Content Page'
+      });
+      
+      if (result.success) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', phone: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -160,7 +197,7 @@ const ContentPage: React.FC = () => {
               >
                 <div className="bg-gradient-to-br from-[#1dd3b0] to-[#affc41] p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
                   <benefit.icon className="text-white text-2xl" />
-            </div>
+                </div>
                 <h3 className="text-xl font-semibold text-[#086375] mb-4">{benefit.title}</h3>
                 <p className="text-gray-600">{benefit.desc}</p>
               </motion.div>
@@ -297,19 +334,26 @@ const ContentPage: React.FC = () => {
                 Ready to Craft Your Brand's Story?
               </h2>
               <p className="text-xl text-gray-600 mb-8">
-            Fill in the form to set up a meeting or call +64 22 5060 870.
-          </p>
-              <form className="space-y-6">
+                Fill in the form to set up a meeting or call +64 22 5060 870.
+              </p>
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="relative">
                   <input
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all"
                     placeholder="Full name"
+                    required
                   />
                 </div>
                 <div className="relative">
                   <input
                     type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all"
                     placeholder="Phone number"
                   />
@@ -317,22 +361,42 @@ const ContentPage: React.FC = () => {
                 <div className="relative">
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all"
                     placeholder="Email"
+                    required
                   />
                 </div>
                 <div className="relative">
                   <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all h-32"
                     placeholder="Tell us about your project"
+                    required
                   ></textarea>
                 </div>
+                {submitStatus === 'success' && (
+                  <div className="text-green-600 text-sm">
+                    Thank you! Your message has been sent successfully.
+                  </div>
+                )}
+                {submitStatus === 'error' && (
+                  <div className="text-red-600 text-sm">
+                    Oops! Something went wrong. Please try again.
+                  </div>
+                )}
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full bg-[#1dd3b0] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#affc41] transition-all duration-300"
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#1dd3b0] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#affc41] transition-all duration-300 disabled:opacity-50"
                 >
-                  Let's Talk About Your Brand
+                  {isSubmitting ? 'Sending...' : 'Let\'s Talk About Your Brand'}
                 </motion.button>
               </form>
               <div className="mt-6 flex items-center justify-center space-x-4 text-sm text-gray-500">
