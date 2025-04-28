@@ -1,8 +1,34 @@
-import React from 'react';
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
+  const toggleDropdown = (section: string) => {
+    setActiveDropdown(activeDropdown === section ? null : section);
+  };
+
+  const renderDropdownButton = (section: string, title: string) => (
+    <button
+      onClick={() => toggleDropdown(section)}
+      className="flex items-center justify-between w-full text-xl font-bold mb-4 text-white md:hidden"
+    >
+      {title}
+      {activeDropdown === section ? <FaChevronUp /> : <FaChevronDown />}
+    </button>
+  );
+
+  const renderSection = (section: string, title: string, content: React.ReactNode) => (
+    <div className="mb-8 md:mb-0">
+      <h3 className="hidden md:block text-xl font-bold mb-4 text-white">{title}</h3>
+      {renderDropdownButton(section, title)}
+      <div className={`${activeDropdown === section ? 'block' : 'hidden'} md:block`}>
+        {content}
+      </div>
+    </div>
+  );
+
   return (
     <footer className="bg-[#086375] text-white">
       <div className="container mx-auto px-4 py-12">
@@ -36,8 +62,9 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h3 className="text-xl font-bold mb-4 text-white">Quick Links</h3>
+          {renderSection(
+            'quick-links',
+            'Quick Links',
             <ul className="space-y-2">
               <li>
                 <Link to="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
@@ -52,11 +79,12 @@ const Footer: React.FC = () => {
                 <Link to="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
               </li>
             </ul>
-          </div>
+          )}
 
           {/* Services */}
-          <div>
-            <h3 className="text-xl font-bold mb-4 text-white">Services</h3>
+          {renderSection(
+            'services',
+            'Services',
             <ul className="space-y-2">
               <li>
                 <Link to="/websites" className="text-gray-300 hover:text-white transition-colors">Web Development</Link>
@@ -71,11 +99,12 @@ const Footer: React.FC = () => {
                 <Link to="/seo" className="text-gray-300 hover:text-white transition-colors">SEO Services</Link>
               </li>
             </ul>
-          </div>
+          )}
 
           {/* Contact Info */}
-          <div>
-            <h3 className="text-xl font-bold mb-4 text-white">Contact Us</h3>
+          {renderSection(
+            'contact',
+            'Contact Us',
             <ul className="space-y-2">
               <li className="text-gray-300">
                 250b Mangorei Road, Merrilands,<br />
@@ -88,11 +117,11 @@ const Footer: React.FC = () => {
                 Email: <a href="mailto:contact@appdoers.co.nz" className="hover:text-white transition-colors">contact@appdoers.co.nz</a>
               </li>
             </ul>
-          </div>
+          )}
         </div>
 
-        <div className="border-t border-gray-700 mt-8 pt-8 flex justify-between items-center text-gray-300">
-          <p>&copy; 2025 AppDoers. All rights reserved.</p>
+        <div className="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-300">
+          <p className="mb-4 md:mb-0">&copy; 2025 AppDoers. All rights reserved.</p>
           <p>Website developed by <a href="https://buildwithsds.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">buildwithsds.com</a></p>
         </div>
       </div>
