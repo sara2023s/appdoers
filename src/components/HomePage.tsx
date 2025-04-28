@@ -6,7 +6,6 @@ import OnlineStrategy from './OnlineStrategy';
 import Statistics from './Statistics';
 import Testimonials from './Testimonials';
 import ContactCTA from './ContactCTA';
-import Footer from './Footer';
 
 const HomePage: React.FC = () => {
   return (
@@ -18,7 +17,6 @@ const HomePage: React.FC = () => {
       <Statistics />
       <Testimonials />
       <ContactCTA />
-      <Footer />
     </main>
   );
 };

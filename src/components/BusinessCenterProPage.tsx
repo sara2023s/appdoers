@@ -1,313 +1,392 @@
-import React from 'react';
-import { FaLaptop, FaEnvelope, FaInbox, FaSearch, FaStar, FaShareAlt, FaChartLine, FaUsers, FaList, FaMapMarkerAlt, FaPhone, FaEnvelope as FaEnvelopeIcon } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { 
+  FaLaptop, FaEnvelope, FaInbox, FaSearch, FaStar, 
+  FaShareAlt, FaChartLine, FaUsers, FaList, FaMapMarkerAlt, 
+  FaPhone, FaEnvelope as FaEnvelopeIcon, FaChevronRight,
+  FaCheck, FaArrowRight
+} from 'react-icons/fa';
 
 const BusinessCenterProPage: React.FC = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="py-20 px-4 md:px-8 bg-gradient-to-r from-blue-50 to-indigo-50">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
-            Business Center Pro!
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-            Business Center Pro comprehensively supports every facet of local business growth, paving the way for a successful journey. From day-to-day operations to online presence, seamless integrations with industry-leading channels ensure efficiency and consistency for your local business clients.
-          </p>
-          <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition">
-            Request a Demo
-          </button>
+      <section className="relative py-32 px-4 md:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#086375] to-[#1dd3b0] opacity-90 backdrop-blur-sm">
+          <div className="absolute inset-0 bg-dots-pattern opacity-10"></div>
+        </div>
+
+        <div className="relative max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <motion.h1 
+              className="text-4xl md:text-6xl font-bold text-white mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              Business Center Pro!
+            </motion.h1>
+            <motion.p 
+              className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-12 italic"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Your All-In-One Solution for Seamless Local Business Growth
+            </motion.p>
+            <motion.button
+              whileHover={{ scale: 1.05, backgroundColor: '#1dd3b0' }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-[#affc41] text-[#3c1642] px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-[#affc41]/30"
+            >
+              Request a Free Demo
+            </motion.button>
+          </motion.div>
         </div>
       </section>
 
-      {/* Dashboard Preview */}
-      <section className="py-16 px-4 md:px-8">
-        <div className="max-w-6xl mx-auto text-center">
-          <div className="bg-gray-100 p-8 rounded-lg shadow-lg">
-            <FaLaptop className="text-blue-600 text-6xl mx-auto mb-4" />
-            <p className="text-gray-600">A laptop computer with a dashboard on the screen.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Grid */}
-      <section className="py-16 px-4 md:px-8 bg-gray-50">
+      {/* Key Features Section */}
+      <section className="py-20 px-4 md:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <FaEnvelope className="text-blue-600 text-3xl mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Campaigns Pro</h3>
-              <p className="text-gray-600">
-                Create captivating, customised email campaigns in minutes with Campaigns Pro.
-              </p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-[#3c1642] mb-4">
+              Powerful Tools for Business Growth
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-12">
+              Choose between our Pro and Standard solutions to match your business needs
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-12">
+            {/* Pro Version */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="bg-white p-8 rounded-xl shadow-lg border-2 border-[#1dd3b0]"
+            >
+              <h3 className="text-2xl font-bold text-[#3c1642] mb-6">Business Center Pro</h3>
+              <div className="space-y-6">
+                {[
+                  {
+                    icon: FaEnvelope,
+                    title: 'Campaigns Pro',
+                    desc: 'Create customized email campaigns in minutes to engage your audience and boost conversions.'
+                  },
+                  {
+                    icon: FaInbox,
+                    title: 'Inbox Pro',
+                    desc: 'Centralize all communications to capture more leads and improve conversions.'
+                  },
+                  {
+                    icon: FaSearch,
+                    title: 'Local SEO Pro',
+                    desc: 'Optimize business profiles and rank for more keywords to get found faster.'
+                  },
+                  {
+                    icon: FaStar,
+                    title: 'Reputation Management Premium',
+                    desc: 'Build a strong reputation with automated review collection and management.'
+                  },
+                  {
+                    icon: FaShareAlt,
+                    title: 'Social Marketing Pro',
+                    desc: 'Post unlimited content across social platforms to enhance your online presence.'
+                  },
+                  {
+                    icon: FaChartLine,
+                    title: 'Advertising Intelligence',
+                    desc: 'Optimize your ads with AI-powered intelligence to maximize ROI.'
+                  }
+                ].map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    whileHover={{ x: 10 }}
+                    className="flex items-start space-x-4"
+                  >
+                    <div className="bg-gradient-to-br from-[#1dd3b0] to-[#affc41] p-3 rounded-lg">
+                      <feature.icon className="text-white text-xl" />
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <FaInbox className="text-blue-600 text-3xl mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Inbox Pro</h3>
-              <p className="text-gray-600">
-                Increase lead capture and conversion by centralising communication in Inbox Pro.
-              </p>
+                    <div>
+                      <h4 className="font-semibold text-[#086375]">{feature.title}</h4>
+                      <p className="text-gray-600 text-sm">{feature.desc}</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <FaSearch className="text-blue-600 text-3xl mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Local SEO Pro</h3>
-              <p className="text-gray-600">
-                Optimise business profiles and boost keyword rankings to get found faster with Local SEO Pro.
-              </p>
+                  </motion.div>
+                ))}
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <FaStar className="text-blue-600 text-3xl mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Reputation Management</h3>
-              <p className="text-gray-600">
-                Collect more reviews to build an ironclad reputation with Reputation Management Premium.
-              </p>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full mt-8 bg-[#1dd3b0] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#affc41] transition-all duration-300"
+              >
+                Get Started with Pro
+              </motion.button>
+            </motion.div>
+
+            {/* Standard Version */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="bg-white p-8 rounded-xl shadow-lg"
+            >
+              <h3 className="text-2xl font-bold text-[#3c1642] mb-6">Business Center Standard</h3>
+              <div className="space-y-6">
+                {[
+                  {
+                    icon: FaUsers,
+                    title: 'Integrated CRM',
+                    desc: 'Manage customer relationships and streamline your business processes.'
+                  },
+                  {
+                    icon: FaStar,
+                    title: 'Reputation Management',
+                    desc: 'Build trust with automated review collection and response management.'
+                  },
+                  {
+                    icon: FaChartLine,
+                    title: 'Advertising Intelligence',
+                    desc: 'Track and optimize your advertising performance with smart insights.'
+                  }
+                ].map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    whileHover={{ x: 10 }}
+                    className="flex items-start space-x-4"
+                  >
+                    <div className="bg-gradient-to-br from-[#1dd3b0] to-[#affc41] p-3 rounded-lg">
+                      <feature.icon className="text-white text-xl" />
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <FaShareAlt className="text-blue-600 text-3xl mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Social Marketing Pro</h3>
-              <p className="text-gray-600">
-                Curate an engaging online presence with unlimited social posting from Social Marketing Pro.
-              </p>
+                    <div>
+                      <h4 className="font-semibold text-[#086375]">{feature.title}</h4>
+                      <p className="text-gray-600 text-sm">{feature.desc}</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <FaChartLine className="text-blue-600 text-3xl mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Advertising Intelligence</h3>
-              <p className="text-gray-600">
-                Effortlessly oversee your online presence with just a few clicks using Advertising Intelligence.
-              </p>
+                  </motion.div>
+                ))}
             </div>
-          </div>
-          <div className="text-center mt-8">
-            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition">
-              Book a Demo
-            </button>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full mt-8 bg-[#1dd3b0] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#affc41] transition-all duration-300"
+              >
+                Get Started with Standard
+              </motion.button>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* Email Marketing Section */}
-      <section className="py-16 px-4 md:px-8">
+      {/* Core Benefits Section */}
+      <section className="py-20 px-4 md:px-8 bg-gradient-to-br from-[#3c1642]/5 to-[#086375]/5">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8">Email Marketing</h2>
-          <p className="text-gray-600 mb-8">
-            Email marketing is a powerful tool for businesses, allowing them to communicate directly with customers and prospects. It helps in building relationships, promoting products or services, and driving sales. By using email marketing platforms, companies can segment their audience, personalize messages, and track performance metrics. This targeted approach ensures that the right message reaches the right people at the right time.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold mb-2">Builds customer relationships</h3>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-[#3c1642] mb-4">
+              Unlock Powerful Features for Business Growth
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-12">
+              Discover how our tools can transform your business operations
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: FaUsers,
+                title: 'Build Customer Relationships',
+                desc: 'Engage with customers using personalized, automated email marketing campaigns.'
+              },
+              {
+                icon: FaChartLine,
+                title: 'Boost Revenue with Smart CRM',
+                desc: 'Improve customer service and streamline processes with centralized customer data.'
+              },
+              {
+                icon: FaStar,
+                title: 'Automated Reputation Management',
+                desc: 'Collect reviews and respond in real-time to build trust.'
+              }
+            ].map((benefit, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -10 }}
+                className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <div className="bg-gradient-to-br from-[#1dd3b0] to-[#affc41] p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
+                  <benefit.icon className="text-white text-2xl" />
             </div>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold mb-2">Promotes products/services</h3>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold mb-2">Tracks performance metrics</h3>
-            </div>
-          </div>
-          <div className="text-center">
-            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition">
-              Book a Demo
-            </button>
+                <h3 className="text-xl font-semibold text-[#086375] mb-4">{benefit.title}</h3>
+                <p className="text-gray-600">{benefit.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Integrated CRM Section */}
-      <section className="py-16 px-4 md:px-8 bg-gray-50">
+      {/* Testimonials Section */}
+      <section className="py-20 px-4 md:px-8">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8">Integrated CRM</h2>
-          <p className="text-gray-600 mb-8">
-            Customer Relationship Management (CRM) is essential for modern businesses, enabling them to manage interactions with current and potential customers efficiently. By leveraging CRM systems, companies can streamline processes, improve customer service, and boost profitability. CRM tools provide a centralised platform for tracking customer data, analysing interactions, and automating workflows.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-xl font-semibold mb-2">Enhances customer service</h3>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-[#3c1642] mb-4">
+              Trusted by Businesses Worldwide
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-12">
+              Rated 5 stars by over 300 businesses for driving growth and increasing revenue
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                quote: "Business Center Pro has transformed how we manage our local business. The tools are intuitive and powerful.",
+                author: "Sarah Johnson",
+                role: "Marketing Director"
+              },
+              {
+                quote: "The integration between tools is seamless. We've seen a 40% increase in customer engagement.",
+                author: "Michael Chen",
+                role: "Business Owner"
+              },
+              {
+                quote: "The ROI on our investment has been incredible. The platform pays for itself.",
+                author: "Emily Rodriguez",
+                role: "Operations Manager"
+              }
+            ].map((testimonial, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -10 }}
+                className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <div className="flex mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <FaStar key={i} className="text-[#1dd3b0] text-xl" />
+                  ))}
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-xl font-semibold mb-2">Streamlines business processes</h3>
+                <p className="text-gray-600 mb-6 italic">"{testimonial.quote}"</p>
+                <div>
+                  <p className="font-semibold text-[#3c1642]">{testimonial.author}</p>
+                  <p className="text-gray-500">{testimonial.role}</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <h3 className="text-xl font-semibold mb-2">Centralises customer data</h3>
-            </div>
-          </div>
-          <div className="text-center">
-            <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition">
-              Book a Demo
-            </button>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Plans Section */}
-      <section className="py-16 px-4 md:px-8">
+      {/* Contact Form Section */}
+      <section className="py-20 px-4 md:px-8">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">Choose a Plan</h2>
-          <p className="text-gray-600 mb-8 text-center">
-            Selecting the right Business App plan is crucial for meeting your company's needs and goals. Whether you opt for the Standard or Pro version, each plan offers a unique set of features designed to enhance your business operations and drive growth.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">BUSINESS APP Pro Toolkit</h3>
-              <p className="text-gray-600 mb-6">Perfect for larger businesses or those seeking advanced functionalities</p>
-              <ul className="space-y-3 mb-6">
-                <li className="flex items-center">
-                  <FaEnvelope className="text-blue-600 mr-2" />
-                  <span>Campaigns Pro</span>
-                </li>
-                <li className="flex items-center">
-                  <FaInbox className="text-blue-600 mr-2" />
-                  <span>Inbox Pro</span>
-                </li>
-                <li className="flex items-center">
-                  <FaShareAlt className="text-blue-600 mr-2" />
-                  <span>Social Marketing</span>
-                </li>
-                <li className="flex items-center">
-                  <FaUsers className="text-blue-600 mr-2" />
-                  <span>Integrated CRM</span>
-                </li>
-                <li className="flex items-center">
-                  <FaStar className="text-blue-600 mr-2" />
-                  <span>Reputation Management</span>
-                </li>
-                <li className="flex items-center">
-                  <FaUsers className="text-blue-600 mr-2" />
-                  <span>Customer Voice</span>
-                </li>
-                <li className="flex items-center">
-                  <FaList className="text-blue-600 mr-2" />
-                  <span>Listing Builder</span>
-                </li>
-                <li className="flex items-center">
-                  <FaChartLine className="text-blue-600 mr-2" />
-                  <span>Advertising Intelligence</span>
-                </li>
-              </ul>
-              <button className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
-                Get Started
-              </button>
-            </div>
-            <div className="bg-white p-8 rounded-lg shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-800 mb-4">BUSINESS APP Standard</h3>
-              <p className="text-gray-600 mb-6">Ideal for small to medium businesses, this plan provides essential tools</p>
-              <ul className="space-y-3 mb-6">
-                <li className="flex items-center">
-                  <FaUsers className="text-blue-600 mr-2" />
-                  <span>Integrated CRM</span>
-                </li>
-                <li className="flex items-center">
-                  <FaStar className="text-blue-600 mr-2" />
-                  <span>Reputation Management</span>
-                </li>
-                <li className="flex items-center">
-                  <FaUsers className="text-blue-600 mr-2" />
-                  <span>Customer Voice</span>
-                </li>
-                <li className="flex items-center">
-                  <FaList className="text-blue-600 mr-2" />
-                  <span>Listing Builder</span>
-                </li>
-                <li className="flex items-center">
-                  <FaChartLine className="text-blue-600 mr-2" />
-                  <span>Advertising Intelligence</span>
-                </li>
-              </ul>
-              <button className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition">
-                Get Started
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="py-16 px-4 md:px-8 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">Let's talk about your project</h2>
-          <p className="text-xl text-gray-600 mb-8 text-center">
-            Fill in the form to set up a meeting or call +64 22 5060 870.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <form className="space-y-4">
-                <div>
-                  <label className="block text-gray-700 mb-2">Full name</label>
-                  <input type="text" className="w-full p-2 border rounded-lg" />
-                </div>
-                <div>
-                  <label className="block text-gray-700 mb-2">Phone number</label>
-                  <input type="tel" className="w-full p-2 border rounded-lg" />
-                </div>
-                <div>
-                  <label className="block text-gray-700 mb-2">Email</label>
-                  <input type="email" className="w-full p-2 border rounded-lg" />
-                </div>
-                <div>
-                  <label className="block text-gray-700 mb-2">Message</label>
-                  <textarea className="w-full p-2 border rounded-lg h-32"></textarea>
-                </div>
-                <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
-                  Send Message
-                </button>
-              </form>
-            </div>
-            <div className="space-y-6">
-              <div className="flex items-center">
-                <FaMapMarkerAlt className="text-blue-600 mr-4 text-xl" />
-                <div>
-                  <h3 className="font-semibold">Location</h3>
-                  <p>New Plymouth, Taranaki, New Zealand</p>
-                </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="bg-white rounded-xl p-8 shadow-lg"
+          >
+            <h2 className="text-2xl font-bold text-[#3c1642] mb-6">Request a Demo</h2>
+            <p className="text-gray-600 mb-8">
+              Fill in the form to set up a meeting or call <a href="tel:+64225060870" className="text-[#1dd3b0] hover:text-[#affc41]">+64 22 5060 870</a>
+            </p>
+            <form className="space-y-6">
+              <div className="relative">
+                <input
+                  type="text"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all"
+                  placeholder="Full name"
+                />
               </div>
-              <div className="flex items-center">
-                <FaPhone className="text-blue-600 mr-4 text-xl" />
-                <div>
-                  <h3 className="font-semibold">Phone</h3>
-                  <p>+64 22 5060 870</p>
-                </div>
+              <div className="relative">
+                <input
+                  type="tel"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all"
+                  placeholder="Phone number"
+                />
               </div>
-              <div className="flex items-center">
-                <FaEnvelopeIcon className="text-blue-600 mr-4 text-xl" />
-                <div>
-                  <h3 className="font-semibold">Email</h3>
-                  <p>contact@appdoers.co.nz</p>
+              <div className="relative">
+                <input
+                  type="email"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all"
+                  placeholder="Email"
+                />
                 </div>
+              <div className="relative">
+                <textarea
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all h-32"
+                  placeholder="Message"
+                ></textarea>
               </div>
-            </div>
-          </div>
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full bg-[#1dd3b0] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#affc41] transition-all duration-300"
+              >
+                Submit
+              </motion.button>
+            </form>
+          </motion.div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8 px-4 md:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="font-semibold mb-4">Get In Touch</h3>
-              <p>New Plymouth, Taranaki, New Zealand</p>
-              <p>+64 22 5060 870</p>
-              <p>contact@appdoers.co.nz</p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Learn More</h3>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:text-blue-400">About Us</a></li>
-                <li><a href="#" className="hover:text-blue-400">Contact Us</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Terms</h3>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:text-blue-400">Terms of Use</a></li>
-                <li><a href="#" className="hover:text-blue-400">Cookies Policy</a></li>
-                <li><a href="#" className="hover:text-blue-400">Privacy Policy</a></li>
-              </ul>
-            </div>
-            <div>
-              <p>© 2024 Appdoers Limited.</p>
-              <p>All rights reserved.</p>
-            </div>
-          </div>
-        </div>
-      </footer>
+      {/* Floating CTA Button */}
+      {isScrolled && (
+        <motion.div
+          initial={{ y: 100 }}
+          animate={{ y: 0 }}
+          className="fixed bottom-4 right-4 z-50"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-[#1dd3b0] text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-[#affc41] transition-all duration-300 flex items-center space-x-2"
+          >
+            <span>Request a Demo</span>
+            <FaEnvelope />
+          </motion.button>
+        </motion.div>
+      )}
     </div>
   );
 };

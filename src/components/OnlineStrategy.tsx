@@ -1,106 +1,64 @@
-import React, { useEffect, useRef } from 'react';
-import { Users, Mail, Calendar, MessageCircle, BarChart } from 'lucide-react';
-
-type ToolCardProps = {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  delay: string;
-};
-
-const ToolCard: React.FC<ToolCardProps> = ({ icon, title, description, delay }) => {
-  return (
-    <div className={`animate-on-scroll opacity-0 translate-y-10 transition-all duration-700 ${delay} flex items-center p-4 bg-white rounded-lg shadow-sm border border-gray-100`}>
-      <div className="text-blue-600 mr-4 flex-shrink-0">{icon}</div>
-      <div>
-        <h4 className="font-medium">{title}</h4>
-        <p className="text-sm text-gray-600">{description}</p>
-      </div>
-    </div>
-  );
-};
+import React from 'react';
+import { FaUsers, FaEnvelope, FaCalendar, FaComments, FaChartBar, FaDesktop } from 'react-icons/fa';
 
 const OnlineStrategy: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('opacity-100', 'translate-y-0');
-            entry.target.classList.remove('opacity-0', 'translate-y-10');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const elements = sectionRef.current?.querySelectorAll('.animate-on-scroll');
-    elements?.forEach((el) => observer.observe(el));
-
-    return () => {
-      elements?.forEach((el) => observer.unobserve(el));
-    };
-  }, []);
+  const features = [
+    {
+      icon: <FaUsers className="text-4xl text-[#1dd3b0]" />,
+      title: "CRM Integration",
+      description: "Manage customer relationships and track interactions seamlessly"
+    },
+    {
+      icon: <FaEnvelope className="text-4xl text-[#1dd3b0]" />,
+      title: "Email Marketing",
+      description: "Create and automate targeted email campaigns"
+    },
+    {
+      icon: <FaCalendar className="text-4xl text-[#1dd3b0]" />,
+      title: "Appointment Booking",
+      description: "Streamline scheduling with automated booking system"
+    },
+    {
+      icon: <FaComments className="text-4xl text-[#1dd3b0]" />,
+      title: "Communication Hub",
+      description: "Centralize all customer communications in one place"
+    },
+    {
+      icon: <FaChartBar className="text-4xl text-[#1dd3b0]" />,
+      title: "Automated Reporting",
+      description: "Get real-time insights with automated analytics"
+    },
+    {
+      icon: <FaDesktop className="text-4xl text-[#1dd3b0]" />,
+      title: "Dashboard Visualization",
+      description: "Monitor performance with intuitive dashboards"
+    }
+  ];
 
   return (
-    <section ref={sectionRef} className="py-16 md:py-24 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="animate-on-scroll opacity-0 translate-y-10 transition-all duration-700 text-3xl md:text-4xl font-bold mb-6">
-                Manage Your Online Strategy <span className="text-blue-600">Effortlessly</span>
-              </h2>
-              <p className="animate-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-100 text-lg text-gray-600 mb-8">
-                Our comprehensive business management platform gives you powerful tools to streamline operations, enhance customer relationships, and drive growth.
-              </p>
-              
-              <div className="grid grid-cols-1 gap-4">
-                <ToolCard
-                  icon={<Users className="h-8 w-8" />}
-                  title="CRM System"
-                  description="Manage customer relationships and track interactions"
-                  delay="delay-200"
-                />
-                <ToolCard
-                  icon={<Mail className="h-8 w-8" />}
-                  title="Email Marketing"
-                  description="Create and track email campaigns to engage customers"
-                  delay="delay-300"
-                />
-                <ToolCard
-                  icon={<Calendar className="h-8 w-8" />}
-                  title="Appointment Booking"
-                  description="Allow customers to schedule appointments online"
-                  delay="delay-400"
-                />
-                <ToolCard
-                  icon={<MessageCircle className="h-8 w-8" />}
-                  title="Communication Hub"
-                  description="Centralized platform for all customer interactions"
-                  delay="delay-500"
-                />
-                <ToolCard
-                  icon={<BarChart className="h-8 w-8" />}
-                  title="Automated Reporting"
-                  description="Get insights with automated performance reports"
-                  delay="delay-600"
-                />
+    <section className="py-20 bg-[#b2ff9e]/10">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="section-title">Manage Your Online Strategy</h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Comprehensive tools to streamline your digital presence and boost engagement
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-xl p-8 shadow-md hover:shadow-lg transition-all duration-300 reveal"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              <div className="flex flex-col items-center text-center">
+                <div className="mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-bold text-[#086375] mb-2">{feature.title}</h3>
+                <p className="text-gray-600">{feature.description}</p>
               </div>
             </div>
-            
-            <div className="animate-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-200">
-              <div className="bg-gradient-to-br from-blue-50 to-purple-50 p-2 md:p-8 rounded-2xl shadow-xl">
-                <img 
-                  src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                  alt="Dashboard Visualization" 
-                  className="rounded-xl shadow-md w-full"
-                />
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

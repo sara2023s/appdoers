@@ -1,120 +1,77 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import React from 'react';
+import { FaStar, FaQuoteLeft } from 'react-icons/fa';
 
 const testimonials = [
   {
-    id: 1,
-    content: "AppDoers transformed our online presence completely. Their mobile app development and SEO strategies increased our revenue by 32% in just 6 months.",
-    author: "Sarah Johnson",
-    position: "CEO, RetailPlus",
+    name: 'Sarah Johnson',
+    role: 'CEO, TechStart',
+    image: 'https://randomuser.me/api/portraits/women/1.jpg',
+    text: 'AppDoers transformed our digital presence. Their expertise in web development and SEO has significantly increased our online visibility and customer engagement.',
     rating: 5
   },
   {
-    id: 2,
-    content: "The team at AppDoers provided exceptional service from start to finish. Their website redesign and content strategy helped us reach a much wider audience.",
-    author: "Michael Chen",
-    position: "Marketing Director, TechInnovate",
+    name: 'Michael Chen',
+    role: 'Marketing Director, GrowthCo',
+    image: 'https://randomuser.me/api/portraits/men/1.jpg',
+    text: 'The team at AppDoers delivered exceptional results with our social media campaigns. Their strategic approach and creative content have helped us reach new audiences.',
     rating: 5
   },
   {
-    id: 3,
-    content: "Implementing the Business Center Pro solution from AppDoers streamlined our operations and improved customer communication substantially.",
-    author: "Emma Rodriguez",
-    position: "Operations Manager, ServicesUnlimited",
+    name: 'Emily Rodriguez',
+    role: 'Founder, E-Commerce Solutions',
+    image: 'https://randomuser.me/api/portraits/women/2.jpg',
+    text: 'Working with AppDoers has been a game-changer for our business. Their comprehensive digital solutions have streamlined our operations and boosted our sales.',
     rating: 5
   }
 ];
 
 const Testimonials: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('opacity-100', 'translate-y-0');
-            entry.target.classList.remove('opacity-0', 'translate-y-10');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const elements = sectionRef.current?.querySelectorAll('.animate-on-scroll');
-    elements?.forEach((el) => observer.observe(el));
-
-    return () => {
-      elements?.forEach((el) => observer.unobserve(el));
-    };
-  }, []);
-
-  const nextTestimonial = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonials.length) % testimonials.length);
+  const renderStars = (rating: number) => {
+    return Array.from({ length: 5 }).map((_, index) => (
+      <FaStar
+        key={index}
+        className={`text-xl ${index < rating ? 'text-yellow-400' : 'text-gray-300'}`}
+      />
+    ));
   };
 
   return (
-    <section ref={sectionRef} className="py-16 md:py-24 bg-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center mb-12">
-          <h2 className="animate-on-scroll opacity-0 translate-y-10 transition-all duration-700 text-3xl md:text-4xl font-bold mb-6">
-            What Our Customers Say
-          </h2>
-          <div className="animate-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-100 inline-block bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-medium">
-            500+ Satisfied Customers
-          </div>
+    <section className="py-20 bg-[#f0fdf4] mt-32">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="section-title text-[#086375]">What Our Clients Say</h2>
+          <p className="text-xl text-gray-600 mt-4 max-w-2xl mx-auto">
+            Don't just take our word for it. Here's what our clients have to say about their experience with AppDoers.
+          </p>
         </div>
 
-        <div className="animate-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-200 max-w-4xl mx-auto relative">
-          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-            <div className="flex justify-center mb-6">
-              {[...Array(testimonials[currentIndex].rating)].map((_, i) => (
-                <Star key={i} className="h-6 w-6 text-yellow-400 fill-current" />
-              ))}
-            </div>
-            
-            <blockquote className="text-xl md:text-2xl text-gray-700 text-center mb-8">
-              "{testimonials[currentIndex].content}"
-            </blockquote>
-            
-            <div className="text-center">
-              <div className="font-semibold text-lg">{testimonials[currentIndex].author}</div>
-              <div className="text-gray-600">{testimonials[currentIndex].position}</div>
-            </div>
-          </div>
-          
-          <div className="flex justify-center mt-8 space-x-4">
-            <button 
-              onClick={prevTestimonial} 
-              className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
-              aria-label="Previous testimonial"
-            >
-              <ChevronLeft className="h-6 w-6" />
-            </button>
-            <div className="flex space-x-2 items-center">
-              {testimonials.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  className={`w-3 h-3 rounded-full ${
-                    index === currentIndex ? 'bg-blue-600' : 'bg-gray-300'
-                  }`}
-                  aria-label={`Go to testimonial ${index + 1}`}
-                />
-              ))}
-            </div>
-            <button 
-              onClick={nextTestimonial} 
-              className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
-              aria-label="Next testimonial"
-            >
-              <ChevronRight className="h-6 w-6" />
-            </button>
+        <div className="relative">
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl p-8 shadow-lg transition-all duration-500 hover:shadow-xl hover:scale-[1.02]"
+              >
+                <div className="flex items-center mb-6">
+                  <img
+                    src={testimonial.image}
+                    alt={testimonial.name}
+                    className="w-16 h-16 rounded-full object-cover mr-4"
+                  />
+                  <div>
+                    <h3 className="text-xl font-bold text-[#086375]">{testimonial.name}</h3>
+                    <p className="text-gray-600">{testimonial.role}</p>
+                  </div>
+                </div>
+                <div className="flex mb-4">
+                  {renderStars(testimonial.rating)}
+                </div>
+                <div className="relative">
+                  <FaQuoteLeft className="text-[#1dd3b0] text-4xl absolute -top-4 left-0 opacity-20" />
+                  <p className="text-gray-700 pl-8">{testimonial.text}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

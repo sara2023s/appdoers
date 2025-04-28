@@ -1,216 +1,377 @@
-import React from 'react';
-import { FaGoogle, FaFacebook, FaTwitter, FaInstagram, FaApple, FaLinkedin, FaYelp, FaGlobe, FaShieldAlt, FaSync, FaChartLine, FaEnvelope, FaMapMarkerAlt, FaPhone } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { 
+  FaGoogle, FaFacebook, FaInstagram, FaTwitter,
+  FaMapMarkerAlt, FaShieldAlt, FaSync,
+  FaQuoteLeft, FaChevronRight, FaChartBar
+} from 'react-icons/fa';
 
 const ListingBuilderPage: React.FC = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 100);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="py-20 px-4 md:px-8 bg-gradient-to-r from-blue-50 to-indigo-50">
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
-            Enhance Your Local Presence
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-            Elevate your business's local presence with Listing Sync, the all-in-one solution for managing and optimizing your business listings effortlessly.
-          </p>
-          <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition">
-            Book a Demo
-          </button>
+      <section className="relative py-32 px-4 md:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#086375] to-[#1dd3b0] opacity-90">
+          <div className="absolute inset-0 bg-dots-pattern opacity-10"></div>
+          {/* Animated Background Icons */}
+          <div className="absolute inset-0 flex justify-center items-center opacity-10">
+            {[FaMapMarkerAlt, FaGoogle, FaFacebook, FaInstagram].map((Icon, index) => (
+              <motion.div
+                key={index}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                className="text-white text-6xl mx-8"
+              >
+                <Icon />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        <div className="relative max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <motion.h1 
+              className="text-4xl md:text-6xl font-bold text-white mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              Enhance Your Local Presence
+            </motion.h1>
+            <motion.p 
+              className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-12"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              Easily manage and optimize business listings with Listing Sync.
+            </motion.p>
+            <motion.button
+              whileHover={{ scale: 1.05, backgroundColor: '#086375' }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-[#1dd3b0] text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-[#1dd3b0]/30"
+            >
+              Book a Free Demo
+            </motion.button>
+          </motion.div>
+
+          {/* Platform Animation */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex justify-center space-x-8"
+          >
+            {[FaGoogle, FaFacebook, FaInstagram, FaTwitter].map((Icon, index) => (
+              <motion.div
+                key={index}
+                initial={{ y: 0 }}
+                animate={{ y: [0, -10, 0] }}
+                transition={{ 
+                  duration: 2,
+                  repeat: Infinity,
+                  delay: index * 0.5
+                }}
+                className="text-white text-4xl"
+              >
+                <Icon />
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
-      {/* Main Content Section */}
-      <section className="py-16 px-4 md:px-8">
+      {/* Features Section */}
+      <section className="py-20 px-4 md:px-8">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">Get Found More with Precision</h2>
-          <p className="text-gray-600 mb-8">
-            Elevate your online visibility by ensuring accurate business listings. With Listing Sync, manage and maintain precision across multiple listing sites effortlessly from one centralised platform, saving you valuable time while enhancing your online presence.
-          </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <FaGlobe className="text-blue-600 text-3xl mb-4" />
-              <h3 className="text-xl font-semibold mb-2">One-Click Listing Generation</h3>
-              <p className="text-gray-600">
-                Quickly generate and correct business listings across a network of 25+ platforms.
-              </p>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <FaShieldAlt className="text-blue-600 text-3xl mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Protection Against Changes</h3>
-              <p className="text-gray-600">
-                Automatically re-establish accurate data if listings are manipulated by third parties.
-              </p>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <FaSync className="text-blue-600 text-3xl mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Centralised Updates</h3>
-              <p className="text-gray-600">
-                Manage all business information from a single dashboard for consistent and updated listings.
-              </p>
-            </div>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <FaChartLine className="text-blue-600 text-3xl mb-4" />
-              <h3 className="text-xl font-semibold mb-2">Sync to Major Platforms</h3>
-              <p className="text-gray-600">
-                Instantaneously update Google, Facebook, and Twitter listings without additional charges.
-              </p>
-            </div>
-          </div>
-
-          <div className="bg-gray-50 p-8 rounded-lg mb-16">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">Supported Platforms</h3>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-              <div className="flex items-center space-x-2">
-                <FaGoogle className="text-blue-600" />
-                <span>Google</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FaFacebook className="text-blue-600" />
-                <span>Facebook</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FaInstagram className="text-blue-600" />
-                <span>Instagram</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FaTwitter className="text-blue-600" />
-                <span>Twitter (X)</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FaGlobe className="text-blue-600" />
-                <span>Bing</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FaApple className="text-blue-600" />
-                <span>Apple</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FaYelp className="text-blue-600" />
-                <span>Yelp</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FaLinkedin className="text-blue-600" />
-                <span>LinkedIn</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FaGlobe className="text-blue-600" />
-                <span>Tripadvisor</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FaGlobe className="text-blue-600" />
-                <span>Yahoo & many more</span>
-              </div>
-            </div>
-            <div className="text-center mt-8">
-              <button className="bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition">
-                Book a Demo
-              </button>
-            </div>
-          </div>
-
-          <div className="bg-gray-50 p-8 rounded-lg">
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">Why Accurate Listings Matter?</h3>
-            <p className="text-gray-600 mb-6">
-              80% of consumers use search engines for local info, and 50% act within 24 hours. Incorrect listings mean lost sales, frustrated consumers, and lower rankings. Trust is crucial; 73% lose faith in brands with inaccurate listings. Accurate listings are key to a strong local marketing strategy.
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-[#3c1642] mb-4">
+              Features and Benefits
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Powerful tools to simplify your listing management
             </p>
-            <p className="text-gray-600">
-              Ensure your business stands out with Listing Sync, the tool that not only simplifies listing management but also enhances your online presence. Elevate your local marketing stack and build trust with accurate listings today.
-            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: FaSync,
+                title: 'One-Click Listing Generation',
+                desc: 'Create and update listings on 25+ platforms with a single click.'
+              },
+              {
+                icon: FaShieldAlt,
+                title: 'Protection Against Changes',
+                desc: 'Automatically restore your listings if third parties change your business info.'
+              },
+              {
+                icon: FaMapMarkerAlt,
+                title: 'Centralized Updates',
+                desc: 'Manage all your listings from one simple, intuitive dashboard.'
+              }
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -10 }}
+                className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <div className="bg-gradient-to-br from-[#1dd3b0] to-[#affc41] p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
+                  <feature.icon className="text-white text-2xl" />
+                </div>
+                <h3 className="text-xl font-semibold text-[#086375] mb-4">{feature.title}</h3>
+                <p className="text-gray-600">{feature.desc}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Section */}
-      <section className="py-16 px-4 md:px-8 bg-gray-50">
+      {/* Platform Sync Section */}
+      <section className="py-20 px-4 md:px-8 bg-gray-50">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">Let's talk about your project</h2>
-          <p className="text-xl text-gray-600 mb-8 text-center">
-            Fill in the form to set up a meeting or call +64 22 5060 870.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <form className="space-y-4">
-                <div>
-                  <label className="block text-gray-700 mb-2">Full name</label>
-                  <input type="text" className="w-full p-2 border rounded-lg" />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-[#3c1642] mb-4">
+              Sync to Major Platforms
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Sync listings instantly across popular platforms like Google, Facebook, Instagram, Twitter, and more.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+            {[FaGoogle, FaFacebook, FaInstagram, FaTwitter].map((Icon, index) => (
+              <motion.div
+                key={index}
+                whileHover={{ scale: 1.1 }}
+                className="bg-white p-6 rounded-xl shadow-lg flex items-center justify-center"
+              >
+                <Icon className="text-4xl text-[#086375]" />
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Why Listings Matter Section */}
+      <section className="py-20 px-4 md:px-8">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-[#3c1642] mb-4">
+              Why Accurate Listings Matter
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <div className="space-y-6">
+                <div className="flex items-center space-x-4">
+                  <FaChartBar className="text-4xl text-[#1dd3b0]" />
+                  <div>
+                    <h3 className="text-2xl font-bold text-[#086375]">80%</h3>
+                    <p className="text-gray-600">of consumers use search engines for local info</p>
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-gray-700 mb-2">Phone number</label>
-                  <input type="tel" className="w-full p-2 border rounded-lg" />
+                <div className="flex items-center space-x-4">
+                  <FaChartBar className="text-4xl text-[#1dd3b0]" />
+                  <div>
+                    <h3 className="text-2xl font-bold text-[#086375]">50%</h3>
+                    <p className="text-gray-600">act within 24 hours of finding local info</p>
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-gray-700 mb-2">Email</label>
-                  <input type="email" className="w-full p-2 border rounded-lg" />
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="bg-white p-8 rounded-xl shadow-lg"
+            >
+              <p className="text-gray-600 mb-4">
+                Incorrect listings mean lost sales, frustrated consumers, and lower rankings.
+              </p>
+              <p className="text-gray-600">
+                Accurate listings are key to building trust and improving your local rankings.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-20 px-4 md:px-8 bg-gradient-to-r from-[#3c1642] to-[#086375]">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Success Stories
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="bg-white/10 backdrop-blur-sm p-8 rounded-xl max-w-2xl mx-auto"
+          >
+            <FaQuoteLeft className="text-[#1dd3b0] text-4xl mb-4" />
+            <p className="text-white text-xl mb-4">
+              "We increased local foot traffic by 40% after implementing Listing Sync for our business."
+            </p>
+            <div className="text-white/80">
+              <div className="font-semibold">John Smith</div>
+              <div>Owner, Local Cafe</div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Form Section */}
+      <section className="py-20 px-4 md:px-8">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="bg-white rounded-2xl shadow-xl p-8 md:p-12 relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-[#1dd3b0]/10 to-[#affc41]/10"></div>
+            <div className="relative">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#3c1642] mb-4">
+                Let's Enhance Your Local Presence
+              </h2>
+              <p className="text-xl text-gray-600 mb-8">
+                Fill in the form to set up a meeting or call +64 22 5060 870.
+              </p>
+              <form className="space-y-6">
+                <div className="relative">
+                  <input
+                    type="text"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all"
+                    placeholder="Full name"
+                  />
                 </div>
-                <div>
-                  <label className="block text-gray-700 mb-2">Message</label>
-                  <textarea className="w-full p-2 border rounded-lg h-32"></textarea>
+                <div className="relative">
+                  <input
+                    type="tel"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all"
+                    placeholder="Phone number"
+                  />
                 </div>
-                <button className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
-                  Send Message
-                </button>
+                <div className="relative">
+                  <input
+                    type="email"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all"
+                    placeholder="Email"
+                  />
+                </div>
+                <div className="relative">
+                  <textarea
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all h-32"
+                    placeholder="Tell us about your business"
+                  ></textarea>
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full bg-[#1dd3b0] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#affc41] transition-all duration-300"
+                >
+                  Book a Demo Now
+                </motion.button>
               </form>
             </div>
-            <div className="space-y-6">
-              <div className="flex items-center">
-                <FaMapMarkerAlt className="text-blue-600 mr-4 text-xl" />
-                <div>
-                  <h3 className="font-semibold">Location</h3>
-                  <p>New Plymouth, Taranaki, New Zealand</p>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <FaPhone className="text-blue-600 mr-4 text-xl" />
-                <div>
-                  <h3 className="font-semibold">Phone</h3>
-                  <p>+64 22 5060 870</p>
-                </div>
-              </div>
-              <div className="flex items-center">
-                <FaEnvelope className="text-blue-600 mr-4 text-xl" />
-                <div>
-                  <h3 className="font-semibold">Email</h3>
-                  <p>contact@appdoers.co.nz</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8 px-4 md:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="font-semibold mb-4">Get In Touch</h3>
-              <p>New Plymouth, Taranaki, New Zealand</p>
-              <p>+64 22 5060 870</p>
-              <p>contact@appdoers.co.nz</p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Learn More</h3>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:text-blue-400">About Us</a></li>
-                <li><a href="#" className="hover:text-blue-400">Contact Us</a></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-4">Terms</h3>
-              <ul className="space-y-2">
-                <li><a href="#" className="hover:text-blue-400">Terms of Use</a></li>
-                <li><a href="#" className="hover:text-blue-400">Cookies Policy</a></li>
-                <li><a href="#" className="hover:text-blue-400">Privacy Policy</a></li>
-              </ul>
-            </div>
-            <div>
-              <p>© 2024 Appdoers Limited.</p>
-              <p>All rights reserved.</p>
-            </div>
-          </div>
+      {/* Floating CTA Button */}
+      {isScrolled && (
+        <motion.div
+          initial={{ y: 100 }}
+          animate={{ y: 0 }}
+          className="fixed bottom-4 right-4 z-50"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-[#1dd3b0] text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:bg-[#affc41] transition-all duration-300 flex items-center space-x-2"
+          >
+            <span>Book a Free Demo</span>
+            <FaChevronRight />
+          </motion.button>
+        </motion.div>
+      )}
+
+      {/* Footer CTA */}
+      <section className="py-12 px-4 md:px-8 bg-[#3c1642]">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+            Ensure your business is accurately represented online
+          </h2>
+          <p className="text-white/80 mb-6">
+            Trusted by over 500 businesses worldwide
+          </p>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-[#1dd3b0] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#affc41] transition-all duration-300"
+          >
+            Book a Free Demo
+          </motion.button>
         </div>
-      </footer>
+      </section>
     </div>
   );
 };

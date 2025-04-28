@@ -1,256 +1,275 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Phone, Mail, MapPin } from 'lucide-react';
+import React, { useState } from 'react';
+import { FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 const ContactCTA: React.FC = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     message: ''
   });
-  const [errors, setErrors] = useState<Record<string, string>>({});
+
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('opacity-100', 'translate-y-0');
-            entry.target.classList.remove('opacity-0', 'translate-y-10');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const elements = sectionRef.current?.querySelectorAll('.animate-on-scroll');
-    elements?.forEach((el) => observer.observe(el));
-
-    return () => {
-      elements?.forEach((el) => observer.unobserve(el));
-    };
-  }, []);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', phone: '', message: '' });
+    } catch {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
-  };
-
-  const validate = () => {
-    const newErrors: Record<string, string> = {};
-    
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-    
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
-    }
-    
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (validate()) {
-      setIsSubmitting(true);
-      
-      // Simulate form submission
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setIsSubmitted(true);
-        setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          message: ''
-        });
-        
-        // Reset submission status after a delay
-        setTimeout(() => {
-          setIsSubmitted(false);
-        }, 5000);
-      }, 1500);
-    }
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   return (
-    <section ref={sectionRef} className="py-16 md:py-24 bg-gray-50" id="contact">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-            <div className="lg:col-span-2">
-              <h2 className="animate-on-scroll opacity-0 translate-y-10 transition-all duration-700 text-3xl md:text-4xl font-bold mb-6">
-                Let's talk about your project
-              </h2>
-              <p className="animate-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-100 text-lg text-gray-600 mb-8">
-                Ready to elevate your business with cutting-edge digital solutions? Contact us today to discuss how we can help you grow.
-              </p>
-              
-              <div className="space-y-6">
-                <div className="animate-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-200 flex items-center">
-                  <div className="bg-blue-100 p-3 rounded-full mr-4">
-                    <Phone className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <div className="text-sm text-gray-600 mb-1">Call us</div>
-                    <a href="tel:+64225060870" className="text-lg font-medium hover:text-blue-600 transition-colors">
-                      +64 22 5060 870
-                    </a>
-                  </div>
-                </div>
-                
-                <div className="animate-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-300 flex items-center">
-                  <div className="bg-blue-100 p-3 rounded-full mr-4">
-                    <Mail className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <div className="text-sm text-gray-600 mb-1">Email us</div>
-                    <a href="mailto:info@appdoers.com" className="text-lg font-medium hover:text-blue-600 transition-colors">
-                      info@appdoers.com
-                    </a>
-                  </div>
-                </div>
-                
-                <div className="animate-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-400 flex items-center">
-                  <div className="bg-blue-100 p-3 rounded-full mr-4">
-                    <MapPin className="h-6 w-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <div className="text-sm text-gray-600 mb-1">Visit us</div>
-                    <div className="text-lg font-medium">
-                      New Plymouth, Taranaki, New Zealand
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <section className="relative py-32 px-4 md:px-8 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#086375] to-[#1dd3b0] opacity-90 backdrop-blur-sm">
+          <div className="absolute inset-0 bg-dots-pattern opacity-10"></div>
+        </div>
 
-            <div className="lg:col-span-3">
-              <div className="animate-on-scroll opacity-0 translate-y-10 transition-all duration-700 delay-200 bg-white rounded-xl shadow-md p-8">
-                {isSubmitted ? (
-                  <div className="text-center py-8">
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-6">
-                      <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <h3 className="text-2xl font-bold text-gray-800 mb-2">Thank You!</h3>
-                    <p className="text-gray-600">Your message has been sent successfully. We'll get back to you soon.</p>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        className={`w-full px-4 py-3 rounded-lg border ${errors.name ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
-                        placeholder="Enter your full name"
-                      />
-                      {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
-                    </div>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                          Email Address *
-                        </label>
-                        <input
-                          type="email"
-                          id="email"
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          className={`w-full px-4 py-3 rounded-lg border ${errors.email ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
-                          placeholder="Enter your email"
-                        />
-                        {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
-                      </div>
-                      
-                      <div>
-                        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                          Phone Number *
-                        </label>
-                        <input
-                          type="tel"
-                          id="phone"
-                          name="phone"
-                          value={formData.phone}
-                          onChange={handleChange}
-                          className={`w-full px-4 py-3 rounded-lg border ${errors.phone ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors`}
-                          placeholder="Enter your phone number"
-                        />
-                        {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
-                      </div>
-                    </div>
-                    
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                        Message *
-                      </label>
-                      <textarea
-                        id="message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        rows={5}
-                        className={`w-full px-4 py-3 rounded-lg border ${errors.message ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors resize-none`}
-                        placeholder="Tell us about your project"
-                      ></textarea>
-                      {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message}</p>}
-                    </div>
-                    
-                    <div>
-                      <button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className={`w-full py-3 px-6 rounded-lg text-white font-medium ${
-                          isSubmitting ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'
-                        } transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2`}
-                      >
-                        {isSubmitting ? 'Sending...' : 'Send Message'}
-                      </button>
-                    </div>
-                  </form>
-                )}
+        <div className="relative max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <motion.h1 
+              className="text-4xl md:text-6xl font-bold text-white mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              Get in Touch With AppDoers
+            </motion.h1>
+            <motion.p 
+              className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-12"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              We'd love to hear about your project, answer your questions, and help your business thrive.
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Contact Information Section */}
+      <section className="py-20 px-4 md:px-8">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 mb-16">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="flex items-center space-x-4">
+                <motion.div
+                  whileHover={{ rotate: 10 }}
+                  className="text-[#1dd3b0] text-2xl"
+                >
+                  <FaPhone />
+                </motion.div>
+                <div>
+                  <h3 className="font-bold text-[#086375]">Phone</h3>
+                  <a href="tel:+64225060870" className="text-gray-600 hover:text-[#1dd3b0] transition-colors">
+                    +64 22 5060 870
+                  </a>
+                </div>
               </div>
-            </div>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="flex items-center space-x-4">
+                <motion.div
+                  whileHover={{ rotate: 10 }}
+                  className="text-[#1dd3b0] text-2xl"
+                >
+                  <FaMapMarkerAlt />
+                </motion.div>
+                <div>
+                  <h3 className="font-bold text-[#086375]">Address</h3>
+                  <p className="text-gray-600">
+                    250b Mangorei Road, Merrilands,<br />
+                    New Plymouth, 4312, New Zealand
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+            >
+              <div className="flex items-center space-x-4">
+                <motion.div
+                  whileHover={{ rotate: 10 }}
+                  className="text-[#1dd3b0] text-2xl"
+                >
+                  <FaEnvelope />
+                </motion.div>
+                <div>
+                  <h3 className="font-bold text-[#086375]">Email</h3>
+                  <a href="mailto:contact@appdoers.co.nz" className="text-gray-600 hover:text-[#1dd3b0] transition-colors">
+                    contact@appdoers.co.nz
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Contact Form and Map Section */}
+          <div className="grid lg:grid-cols-2 gap-12">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-white rounded-xl p-8 shadow-lg bg-gradient-to-br from-white to-[#b2ff9e]/10"
+            >
+              <h2 className="text-2xl font-bold text-[#3c1642] mb-6">Let's Talk About Your Project</h2>
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all"
+                    required
+                  />
+                  <label
+                    htmlFor="name"
+                    className={`absolute left-4 transition-all duration-200 ${
+                      formData.name ? 'text-xs -top-2 bg-white px-1' : 'top-3'
+                    } text-gray-500`}
+                  >
+                    Full Name *
+                  </label>
+                </div>
+
+                <div className="relative">
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all"
+                    required
+                  />
+                  <label
+                    htmlFor="email"
+                    className={`absolute left-4 transition-all duration-200 ${
+                      formData.email ? 'text-xs -top-2 bg-white px-1' : 'top-3'
+                    } text-gray-500`}
+                  >
+                    Email *
+                  </label>
+                </div>
+
+                <div className="relative">
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all"
+                  />
+                  <label
+                    htmlFor="phone"
+                    className={`absolute left-4 transition-all duration-200 ${
+                      formData.phone ? 'text-xs -top-2 bg-white px-1' : 'top-3'
+                    } text-gray-500`}
+                  >
+                    Phone Number
+                  </label>
+                </div>
+
+                <div className="relative">
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows={4}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[#1dd3b0] focus:border-transparent transition-all"
+                    required
+                  />
+                  <label
+                    htmlFor="message"
+                    className={`absolute left-4 transition-all duration-200 ${
+                      formData.message ? 'text-xs -top-2 bg-white px-1' : 'top-3'
+                    } text-gray-500`}
+                  >
+                    Message *
+                  </label>
+                </div>
+
+                {submitStatus === 'success' && (
+                  <div className="text-green-600 text-sm">
+                    Thank you! Your message has been sent successfully.
+                  </div>
+                )}
+                {submitStatus === 'error' && (
+                  <div className="text-red-600 text-sm">
+                    Oops! Something went wrong. Please try again.
+                  </div>
+                )}
+
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#1dd3b0] text-white px-6 py-3 rounded-lg font-semibold hover:bg-[#affc41] transition-all duration-300 disabled:opacity-50"
+                >
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                </motion.button>
+              </form>
+            </motion.div>
+
+            {/* Map Section */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="rounded-xl overflow-hidden shadow-lg"
+            >
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2997.1234567890123!2d174.12345678901234!3d-39.12345678901234!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d1b123456789012%3A0x1234567890123456!2s250b%20Mangorei%20Road%2C%20Merrilands%2C%20New%20Plymouth%204312%2C%20New%20Zealand!5e0!3m2!1sen!2snz!4v1234567890123!5m2!1sen!2snz"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="min-h-[400px]"
+              ></iframe>
+            </motion.div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   );
 };
 

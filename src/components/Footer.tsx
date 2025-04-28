@@ -1,86 +1,91 @@
 import React from 'react';
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin } from 'lucide-react';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bg-gray-900 text-white pt-16 pb-8">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+    <footer className="bg-[#086375] text-white">
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Company Info */}
           <div>
-            <h3 className="text-xl font-bold mb-4">AppDoers</h3>
-            <p className="text-gray-400 mb-6">
-              Transforming businesses with cutting-edge digital solutions for over 20 years.
+            <h3 className="text-xl font-bold mb-4 text-white">AppDoers</h3>
+            <p className="text-gray-300 mb-4">
+              Empowering businesses with innovative digital solutions to drive growth and success in the digital age.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Facebook className="h-5 w-5" />
+              <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                <FaFacebook size={20} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Twitter className="h-5 w-5" />
+              <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                <FaTwitter size={20} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Instagram className="h-5 w-5" />
+              <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                <FaInstagram size={20} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Linkedin className="h-5 w-5" />
+              <a href="#" className="text-gray-300 hover:text-white transition-colors">
+                <FaLinkedin size={20} />
               </a>
             </div>
           </div>
-          
+
+          {/* Quick Links */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Contact Us</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start">
-                <Phone className="h-5 w-5 text-blue-400 mt-0.5 mr-3 flex-shrink-0" />
-                <span className="text-gray-400">+64 22 5060 870</span>
+            <h3 className="text-xl font-bold mb-4 text-white">Quick Links</h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">Home</a>
               </li>
-              <li className="flex items-start">
-                <Mail className="h-5 w-5 text-blue-400 mt-0.5 mr-3 flex-shrink-0" />
-                <span className="text-gray-400">info@appdoers.com</span>
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">About Us</a>
               </li>
-              <li className="flex items-start">
-                <MapPin className="h-5 w-5 text-blue-400 mt-0.5 mr-3 flex-shrink-0" />
-                <span className="text-gray-400">New Plymouth, Taranaki, New Zealand</span>
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">Services</a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">Contact</a>
               </li>
             </ul>
           </div>
-          
+
+          {/* Services */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Quick Links</h3>
+            <h3 className="text-xl font-bold mb-4 text-white">Services</h3>
             <ul className="space-y-2">
-              {['About Us', 'Services', 'Products', 'Contact Us', 'Blog'].map((item, index) => (
-                <li key={index}>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    {item}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">Web Development</a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">Mobile Apps</a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">Digital Marketing</a>
+              </li>
+              <li>
+                <a href="#" className="text-gray-300 hover:text-white transition-colors">SEO Services</a>
+              </li>
             </ul>
           </div>
-          
+
+          {/* Contact Info */}
           <div>
-            <h3 className="text-xl font-bold mb-4">Legal</h3>
+            <h3 className="text-xl font-bold mb-4 text-white">Contact Us</h3>
             <ul className="space-y-2">
-              {['Terms of Use', 'Privacy Policy', 'Cookie Policy', 'GDPR'].map((item, index) => (
-                <li key={index}>
-                  <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                    {item}
-                  </a>
-                </li>
-              ))}
+              <li className="text-gray-300">
+                123 Business Street, Suite 100<br />
+                New York, NY 10001
+              </li>
+              <li className="text-gray-300">
+                Phone: +1 (555) 123-4567
+              </li>
+              <li className="text-gray-300">
+                Email: info@appdoers.com
+              </li>
             </ul>
           </div>
         </div>
-        
-        <div className="border-t border-gray-800 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-500 text-sm mb-4 md:mb-0">
-              &copy; {new Date().getFullYear()} AppDoers. All rights reserved.
-            </p>
-            <div className="text-gray-500 text-sm">
-              Designed with ❤️ in New Zealand
-            </div>
-          </div>
+
+        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
+          <p>&copy; {new Date().getFullYear()} AppDoers. All rights reserved.</p>
         </div>
       </div>
     </footer>
