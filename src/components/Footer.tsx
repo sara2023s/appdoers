@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   return (
@@ -7,10 +8,16 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
-          <div>
-            <h3 className="text-xl font-bold mb-4 text-white">AppDoers</h3>
-            <p className="text-gray-300 mb-4">
-              Empowering businesses with innovative digital solutions to drive growth and success in the digital age.
+          <div className="mb-8 md:mb-0">
+            <Link to="/" className="inline-block">
+              <img
+                src="/images/logo.png"
+                alt="App Doers Logo"
+                className="h-12 w-auto"
+              />
+            </Link>
+            <p className="mt-4 text-white max-w-md">
+              Empowering businesses with innovative digital solutions and cutting-edge technology.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-gray-300 hover:text-white transition-colors">
@@ -33,16 +40,16 @@ const Footer: React.FC = () => {
             <h3 className="text-xl font-bold mb-4 text-white">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">Home</a>
+                <Link to="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
               </li>
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">About Us</a>
+                <Link to="/about" className="text-gray-300 hover:text-white transition-colors">About Us</Link>
               </li>
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">Services</a>
+                <Link to="/services" className="text-gray-300 hover:text-white transition-colors">Services</Link>
               </li>
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">Contact</a>
+                <Link to="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
               </li>
             </ul>
           </div>
@@ -52,16 +59,16 @@ const Footer: React.FC = () => {
             <h3 className="text-xl font-bold mb-4 text-white">Services</h3>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">Web Development</a>
+                <Link to="/websites" className="text-gray-300 hover:text-white transition-colors">Web Development</Link>
               </li>
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">Mobile Apps</a>
+                <Link to="/apps" className="text-gray-300 hover:text-white transition-colors">Mobile Apps</Link>
               </li>
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">Digital Marketing</a>
+                <Link to="/social-marketing" className="text-gray-300 hover:text-white transition-colors">Digital Marketing</Link>
               </li>
               <li>
-                <a href="#" className="text-gray-300 hover:text-white transition-colors">SEO Services</a>
+                <Link to="/seo" className="text-gray-300 hover:text-white transition-colors">SEO Services</Link>
               </li>
             </ul>
           </div>
@@ -71,21 +78,22 @@ const Footer: React.FC = () => {
             <h3 className="text-xl font-bold mb-4 text-white">Contact Us</h3>
             <ul className="space-y-2">
               <li className="text-gray-300">
-                123 Business Street, Suite 100<br />
-                New York, NY 10001
+                250b Mangorei Road, Merrilands,<br />
+                New Plymouth, 4312, New Zealand
               </li>
               <li className="text-gray-300">
-                Phone: +1 (555) 123-4567
+                Phone: <a href="tel:+64225060870" className="hover:text-white transition-colors">+64 22 5060 870</a>
               </li>
               <li className="text-gray-300">
-                Email: info@appdoers.com
+                Email: <a href="mailto:contact@appdoers.co.nz" className="hover:text-white transition-colors">contact@appdoers.co.nz</a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
-          <p>&copy; {new Date().getFullYear()} AppDoers. All rights reserved.</p>
+        <div className="border-t border-gray-700 mt-8 pt-8 flex justify-between items-center text-gray-300">
+          <p>&copy; 2025 AppDoers. All rights reserved.</p>
+          <p>Website developed by <a href="https://buildwithsds.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">buildwithsds.com</a></p>
         </div>
       </div>
     </footer>

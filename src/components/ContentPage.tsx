@@ -22,67 +22,94 @@ const ContentPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative py-32 px-4 md:px-8 overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#086375] via-[#1dd3b0] to-[#affc41] opacity-90">
-          <div className="absolute inset-0 bg-dots-pattern opacity-10"></div>
+      <section className="relative h-[80vh] overflow-hidden pt-24">
+        {/* Background Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#3c1642] via-[#086375] to-[#1dd3b0]">
+          {/* Animated Background Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <motion.div
+              className="absolute w-64 h-64 rounded-full bg-white/10"
+              animate={{
+                x: [0, 100, 0],
+                y: [0, 50, 0],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+            <motion.div
+              className="absolute w-96 h-96 rounded-full bg-white/5"
+              animate={{
+                x: [100, 0, 100],
+                y: [50, 0, 50],
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                duration: 15,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+          </div>
         </div>
 
-        <div className="relative max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <motion.h1 
-              className="text-4xl md:text-6xl font-bold text-white mb-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+        {/* Content */}
+        <div className="relative max-w-6xl mx-auto h-full flex items-center px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center md:text-left"
             >
-              Amplify Your Message. Elevate Your Brand.
-            </motion.h1>
-            <motion.p 
-              className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-12 italic"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              Transform your brand messaging with powerful storytelling that drives action and sales.
-            </motion.p>
-            <motion.button
-              whileHover={{ scale: 1.05, backgroundColor: '#1dd3b0' }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-[#affc41] text-[#3c1642] px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-[#affc41]/30"
-            >
-              Book a Free Messaging Strategy Session
-            </motion.button>
-          </motion.div>
-
-          {/* Animated Keywords */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex justify-center space-x-8"
-          >
-            {['Transform', 'Drive Action', 'Sales'].map((word, index) => (
-              <motion.div
-                key={index}
-                initial={{ y: 0 }}
-                animate={{ y: [0, -10, 0] }}
-                transition={{ 
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: index * 0.5
-                }}
-                className="text-white text-xl font-semibold"
+              <motion.h1 
+                className="text-4xl md:text-6xl font-bold text-white mb-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }}
               >
-                {word}
-              </motion.div>
-            ))}
-          </motion.div>
+                Elevate Your Message & Boost Your Brand
+              </motion.h1>
+              
+              <motion.p 
+                className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto md:mx-0 mb-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                Transform your messaging with our specialised approach, and let your brand story resonate with customers like never before
+              </motion.p>
+
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-white text-[#3c1642] font-semibold px-8 py-4 rounded-lg text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                Book a Session
+              </motion.button>
+            </motion.div>
+
+            {/* Content Hero Image */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="hidden md:block"
+            >
+              <img
+                src="/images/content hero.png"
+                alt="Content Hero"
+                className="w-full h-auto rounded-lg"
+              />
+            </motion.div>
+          </div>
         </div>
       </section>
 

@@ -16,12 +16,14 @@ import BusinessCenterProPage from './components/BusinessCenterProPage';
 import ReviewBuilderPage from './components/ReviewBuilderPage';
 import AdIntelligencePage from './components/AdIntelligencePage';
 import { useScrollAnimation } from './hooks/useScrollAnimation';
+import ScrollToTop from './components/ScrollToTop';
 
 const App: React.FC = () => {
   useScrollAnimation();
 
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-grow">

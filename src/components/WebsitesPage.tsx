@@ -10,53 +10,94 @@ const WebsitesPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative py-32 px-4 md:px-8 overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#3c1642] via-[#086375] to-[#1dd3b0] opacity-90">
-          <div className="absolute inset-0 bg-dots-pattern opacity-10"></div>
+      <section className="relative h-[80vh] overflow-hidden pt-24">
+        {/* Background Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#3c1642] via-[#086375] to-[#1dd3b0]">
+          {/* Animated Background Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <motion.div
+              className="absolute w-64 h-64 rounded-full bg-white/10"
+              animate={{
+                x: [0, 100, 0],
+                y: [0, 50, 0],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+            <motion.div
+              className="absolute w-96 h-96 rounded-full bg-white/5"
+              animate={{
+                x: [100, 0, 100],
+                y: [50, 0, 50],
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                duration: 15,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+          </div>
         </div>
 
-        <div className="relative max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
-            We Build Amazing Creative Experiences
-          </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-12">
-              Responsive websites designed to captivate, engage, and convert.
-            </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-[#1dd3b0] text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-[#affc41] transition-all duration-300 hover:shadow-lg hover:shadow-[#affc41]/30"
+        {/* Content */}
+        <div className="relative max-w-6xl mx-auto h-full flex items-center px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center md:text-left"
             >
-              View Example Websites
-            </motion.button>
-          </motion.div>
+              <motion.h1 
+                className="text-4xl md:text-6xl font-bold text-white mb-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }}
+              >
+                Increase Sales with Your Own Branded Mobile App
+              </motion.h1>
+              
+              <motion.p 
+                className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto md:mx-0 mb-8"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                Custom apps designed to captivate your customers and grow your business.
+              </motion.p>
 
-          {/* Responsive Mockup */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <motion.div whileHover={{ rotate: 5 }} className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <img src="/mockup-desktop.png" alt="Desktop View" className="w-full" />
-              </motion.div>
-              <motion.div whileHover={{ rotate: -5 }} className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <img src="/mockup-tablet.png" alt="Tablet View" className="w-full" />
-              </motion.div>
-              <motion.div whileHover={{ rotate: 5 }} className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <img src="/mockup-mobile.png" alt="Mobile View" className="w-full" />
-              </motion.div>
-            </div>
-          </motion.div>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className="bg-white text-[#3c1642] font-semibold px-8 py-4 rounded-lg text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.6 }}
+              >
+                View Example Apps
+              </motion.button>
+            </motion.div>
+
+            {/* Website Hero Image */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="hidden md:block"
+            >
+              <img
+                src="/images/website hero.png"
+                alt="Website Hero"
+                className="w-full h-auto"
+              />
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -72,9 +113,9 @@ const WebsitesPage: React.FC = () => {
           >
             <div className="relative">
               <img 
-                src="/modern-website-mockup.jpg" 
+                src="/images/website image.jpg" 
                 alt="Modern Website Design" 
-                className="rounded-2xl shadow-xl"
+                className="w-full h-auto rounded-lg border-4 border-white shadow-[0_20px_50px_rgba(0,0,0,0.1)]"
               />
             </div>
             <div>
@@ -173,45 +214,33 @@ const WebsitesPage: React.FC = () => {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { 
-                image: '/website-example-1.jpg',
-                name: 'Eco-Friendly Store',
-                desc: 'Sustainable eCommerce platform'
-              },
-              { 
-                image: '/website-example-2.jpg',
-                name: 'Tech Startup',
-                desc: 'Modern SaaS landing page'
-              },
-              { 
-                image: '/website-example-3.jpg',
-                name: 'Restaurant',
-                desc: 'Online ordering system'
-              }
-            ].map((example, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="group relative overflow-hidden rounded-xl shadow-lg"
-              >
-                <img 
-                  src={example.image} 
-                  alt={example.name}
-                  className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-xl font-bold text-white mb-2">{example.name}</h3>
-                    <p className="text-white/90">{example.desc}</p>
-              </div>
-            </div>
-              </motion.div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="max-w-4xl mx-auto"
+            >
+              <img 
+                src="/images/websites showcase.jpg" 
+                alt="Websites Showcase"
+                className="w-full h-auto rounded-lg border-4 border-white shadow-[0_20px_50px_rgba(0,0,0,0.1)]"
+              />
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="max-w-4xl mx-auto"
+            >
+              <img 
+                src="/images/showcase 2.jpg" 
+                alt="Websites Showcase 2"
+                className="w-full h-auto rounded-lg border-4 border-white shadow-[0_20px_50px_rgba(0,0,0,0.1)]"
+              />
+            </motion.div>
           </div>
         </div>
       </section>

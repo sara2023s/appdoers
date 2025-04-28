@@ -43,8 +43,12 @@ const Header: React.FC = () => {
     <header className="fixed w-full z-50 bg-white shadow-md py-4">
       <nav className="container mx-auto px-4">
         <div className="flex justify-between items-center">
-          <Link to="/" className="text-xl md:text-2xl font-bold text-dark hover:text-primary transition-colors duration-300">
-            AppDoers
+          <Link to="/" className="flex items-center">
+            <img
+              src="/images/logo.png"
+              alt="App Doers Logo"
+              className="h-12 w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation - Hidden on tablets and phones */}

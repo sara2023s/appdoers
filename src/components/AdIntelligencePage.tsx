@@ -17,41 +17,48 @@ const AdIntelligencePage: React.FC = () => {
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative py-32 px-4 md:px-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#086375] to-[#1dd3b0] opacity-90 backdrop-blur-sm">
-          <div className="absolute inset-0 bg-dots-pattern opacity-10"></div>
+        <div className="absolute inset-0">
+          <img
+            src="/images/intelligence.jpg"
+            alt="Ad Intelligence Background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#086375]/40 to-[#1dd3b0]/40 backdrop-blur-sm"></div>
         </div>
 
         <div className="relative max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <motion.h1 
-              className="text-4xl md:text-6xl font-bold text-white mb-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+          <div className="flex flex-col items-center justify-center text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="max-w-3xl"
             >
-              Unleash Advertising Excellence
-            </motion.h1>
-            <motion.p 
-              className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-12 italic"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              Elevate your digital footprint through strategic evaluation and continuous improvement
-            </motion.p>
-            <motion.button
-              whileHover={{ scale: 1.05, backgroundColor: '#1dd3b0' }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-[#affc41] text-[#3c1642] px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-[#affc41]/30"
-            >
-              Book a Demo
-            </motion.button>
-          </motion.div>
+              <motion.h1 
+                className="text-4xl md:text-6xl font-bold text-white mb-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                Unlock the Power of Ad Intelligence
+              </motion.h1>
+              <motion.p 
+                className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-12 italic"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                Transform your advertising strategy with data-driven insights and AI-powered analytics.
+              </motion.p>
+              <motion.button
+                whileHover={{ scale: 1.05, backgroundColor: '#1dd3b0' }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-[#affc41] text-[#3c1642] px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-[#affc41]/30"
+              >
+                Book a Free Demo
+              </motion.button>
+            </motion.div>
+          </div>
         </div>
       </section>
 

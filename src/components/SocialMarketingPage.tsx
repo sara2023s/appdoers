@@ -26,43 +26,59 @@ const SocialMarketingPage: React.FC = () => {
         </div>
 
         <div className="relative max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <motion.h1 
-              className="text-4xl md:text-6xl font-bold text-white mb-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center md:text-left"
             >
-            Simplify Your Social Media Journey
-            </motion.h1>
-            <motion.p 
-              className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-12 italic"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              <motion.h1 
+                className="text-4xl md:text-6xl font-bold text-white mb-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                Simplify Your Social Media Journey
+              </motion.h1>
+              <motion.p 
+                className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-12 italic"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+              >
+                Effortlessly manage, engage, and boost your social presence with our seamless tools.
+              </motion.p>
+              <motion.button
+                whileHover={{ scale: 1.05, backgroundColor: '#1dd3b0' }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-[#affc41] text-[#3c1642] px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-[#affc41]/30"
+              >
+                Book a Free Demo
+              </motion.button>
+            </motion.div>
+
+            {/* Social Marketing Hero Image */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
+              className="hidden md:block mt-8"
             >
-              Effortlessly manage, engage, and boost your social presence with our seamless tools.
-            </motion.p>
-            <motion.button
-              whileHover={{ scale: 1.05, backgroundColor: '#1dd3b0' }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-[#affc41] text-[#3c1642] px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-[#affc41]/30"
-            >
-              Book a Free Demo
-            </motion.button>
-          </motion.div>
+              <img
+                src="/images/social.png"
+                alt="Social Marketing Hero"
+                className="w-full h-auto rounded-lg transform scale-125"
+              />
+            </motion.div>
+          </div>
 
           {/* Social Media Icons Animation */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex justify-center space-x-8"
+            className="flex justify-center space-x-8 mt-2"
           >
             {[FaFacebook, FaInstagram, FaTwitter, FaLinkedin].map((Icon, index) => (
               <motion.div

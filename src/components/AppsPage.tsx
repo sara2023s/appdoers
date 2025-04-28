@@ -11,52 +11,86 @@ const AppsPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative py-32 px-4 md:px-8 overflow-hidden">
-        {/* Animated Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#3c1642] via-[#086375] to-[#1dd3b0] opacity-90">
-          <div className="absolute inset-0 bg-dots-pattern opacity-10"></div>
+      <section className="relative h-[80vh] overflow-hidden">
+        {/* Background Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#3c1642] via-[#086375] to-[#1dd3b0]">
+          {/* Animated Background Elements */}
+          <div className="absolute inset-0 overflow-hidden">
+            <motion.div
+              className="absolute w-64 h-64 rounded-full bg-white/10"
+              animate={{
+                x: [0, 100, 0],
+                y: [0, 50, 0],
+                scale: [1, 1.2, 1],
+              }}
+              transition={{
+                duration: 10,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+            <motion.div
+              className="absolute w-96 h-96 rounded-full bg-white/5"
+              animate={{
+                x: [100, 0, 100],
+                y: [50, 0, 50],
+                scale: [1, 1.1, 1],
+              }}
+              transition={{
+                duration: 15,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+          </div>
         </div>
 
-        <div className="relative max-w-6xl mx-auto">
+        {/* Apps Hero Image */}
+        <div className="absolute inset-0">
+          <img
+            src="/images/apphero.png"
+            alt="Apps Hero"
+            className="w-full h-full object-cover opacity-20"
+          />
+        </div>
+
+        {/* Content */}
+        <div className="relative max-w-6xl mx-auto h-full flex items-center px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
+            className="text-center"
           >
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+            <motion.h1 
+              className="text-4xl md:text-6xl font-bold text-white mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.3)' }}
+            >
               Increase Sales with Your Own Branded Mobile App
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-12">
+            </motion.h1>
+            
+            <motion.p 
+              className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-8"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
               Custom apps designed to captivate your customers and grow your business.
-            </p>
+            </motion.p>
+
             <motion.button
               whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-[#1dd3b0] text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-[#affc41] transition-all duration-300 hover:shadow-lg hover:shadow-[#affc41]/30"
+              whileTap={{ scale: 0.98 }}
+              className="bg-white text-[#3c1642] font-semibold px-8 py-4 rounded-lg text-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
             >
               View Example Apps
             </motion.button>
-          </motion.div>
-
-          {/* App Mockup */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <motion.div whileHover={{ rotate: 5 }} className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <img src="/mockup-phone.png" alt="Mobile App on Phone" className="w-full" />
-              </motion.div>
-              <motion.div whileHover={{ rotate: -5 }} className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <img src="/mockup-tablet.png" alt="Mobile App on Tablet" className="w-full" />
-              </motion.div>
-              <motion.div whileHover={{ rotate: 5 }} className="bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <img src="/mockup-desktop.png" alt="Mobile App on Desktop" className="w-full" />
-              </motion.div>
-            </div>
           </motion.div>
         </div>
       </section>

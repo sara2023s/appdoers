@@ -6,6 +6,7 @@ import {
   FaPhone, FaEnvelope as FaEnvelopeIcon, FaChevronRight,
   FaCheck, FaArrowRight
 } from 'react-icons/fa';
+import BusinessCenterHero from './BusinessCenterHero';
 
 const BusinessCenterProPage: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -20,45 +21,7 @@ const BusinessCenterProPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative py-32 px-4 md:px-8 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#086375] to-[#1dd3b0] opacity-90 backdrop-blur-sm">
-          <div className="absolute inset-0 bg-dots-pattern opacity-10"></div>
-        </div>
-
-        <div className="relative max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <motion.h1 
-              className="text-4xl md:text-6xl font-bold text-white mb-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              Business Center Pro!
-            </motion.h1>
-            <motion.p 
-              className="text-xl md:text-2xl text-white/90 max-w-2xl mx-auto mb-12 italic"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              Your All-In-One Solution for Seamless Local Business Growth
-            </motion.p>
-            <motion.button
-              whileHover={{ scale: 1.05, backgroundColor: '#1dd3b0' }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-[#affc41] text-[#3c1642] px-8 py-4 rounded-lg text-lg font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-[#affc41]/30"
-            >
-              Request a Free Demo
-            </motion.button>
-          </motion.div>
-        </div>
-      </section>
+      <BusinessCenterHero />
 
       {/* Key Features Section */}
       <section className="py-20 px-4 md:px-8">
